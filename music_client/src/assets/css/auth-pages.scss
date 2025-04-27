@@ -1,0 +1,291 @@
+// 登录和注册页面共享的样式
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.sign {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &.sign-up {
+    padding-top: 5vh; // 注册表单顶部留出更少空间
+  }
+
+  .sign-container {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease;
+
+    &:hover {
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    &.login-container {
+      max-width: 420px;
+    }
+
+    &.signup-container {
+      max-width: 560px;
+    }
+  }
+
+  .sign-head {
+    margin-bottom: 20px;
+
+    &.center-aligned {
+      text-align: center;
+    }
+
+    span {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      position: relative;
+      display: inline-block;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        height: 3px;
+        background: var(--el-color-primary);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+      }
+
+      &.left-align:after {
+        left: 0;
+        width: 40px;
+      }
+
+      &.center-align:after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+
+        &:hover {
+          width: 60px;
+        }
+      }
+    }
+  }
+
+  // 表单元素样式
+  .el-form-item {
+    margin-bottom: 20px;
+  }
+
+  // 按钮组样式
+  .sign-btn {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+
+    .el-button {
+      flex: 1;
+      height: 42px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn {
+      background: linear-gradient(to right, var(--el-color-primary), var(--el-color-primary-light-3));
+      border: none;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
+        background: linear-gradient(to right, var(--el-color-primary-light-1), var(--el-color-primary-light-4));
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(64, 158, 255, 0.2);
+      }
+    }
+
+    .secondary-btn {
+      background-color: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      color: rgba(0, 0, 0, 0.65);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, 0.85);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+    }
+  }
+
+  // 输入框样式
+  .input-icon {
+    font-size: 18px;
+    color: #909399;
+  }
+
+  .additional-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+
+    .el-button--text {
+      font-size: 14px;
+      padding: 0;
+      color: var(--el-color-primary);
+
+      &:hover {
+        text-decoration: none;
+        opacity: 0.8;
+        color: var(--el-color-primary-light-3);
+      }
+    }
+  }
+}
+
+// 标准登录表单输入样式
+.standard-form {
+  :deep(.el-input__inner) {
+    border-radius: 8px;
+    height: 42px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    padding-left: 42px;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    &:focus {
+      border-color: var(--el-color-primary);
+      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+    }
+  }
+
+  :deep(.el-input__prefix) {
+    margin-left: 8px;
+    color: #999;
+    display: flex;
+    align-items: center;
+  }
+}
+
+// Fluent风格表单输入样式
+.fluent-form {
+  .el-form-item {
+    margin-bottom: 20px;
+  }
+
+  :deep(.fluent-input .el-input__wrapper) {
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0 12px;
+    height: 42px;
+
+    &:hover {
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3) inset;
+    }
+
+    &.is-focus {
+      box-shadow: 0 0 0 2px var(--el-color-primary) inset;
+      background-color: white;
+    }
+  }
+
+  :deep(.el-input__prefix) {
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+// 注册页面特有样式
+.signup-form {
+  :deep(.el-textarea__inner) {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    &:focus {
+      border-color: var(--el-color-primary);
+      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+    }
+  }
+
+  :deep(.el-form-item__label) {
+    font-weight: 500;
+    color: #606266;
+  }
+
+  :deep(.el-radio__inner) {
+    &:hover {
+      border-color: var(--el-color-primary);
+    }
+  }
+
+  :deep(.el-date-editor),
+  :deep(.el-select) {
+    width: 100%;
+
+    .el-input__inner {
+      padding-left: 12px;
+    }
+  }
+}
+
+:deep(.date-picker-no-icon) {
+  .el-input__prefix-inner {
+    display: none !important;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sign {
+    .sign-container {
+      padding: 25px 20px;
+    }
+
+    .sign-head span {
+      font-size: 20px;
+    }
+  }
+}

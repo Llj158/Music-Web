@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.music.mapper.RankListMapper">
+  <resultMap id="BaseResultMap" type="com.example.music.model.domain.RankList">
+    <id column="id" property="id"/>
+    <result column="song_list_id" property="songListId"/>
+    <result column="consumer_id" property="consumerId"/>
+    <result column="score" property="score"/>
+  </resultMap>
+
+  <select id="selectScoreSum" resultType="java.lang.Integer">
+    SELECT ROUND(avg_score * total_ranks) as score_sum
+    FROM song_list_avg_scores
+    WHERE song_list_id = #{songListId}
+  </select>
+
+  <select id="selectUserRank" resultType="java.lang.Integer">
+    SELECT score
+    FROM rank_list
+    WHERE consumer_id = #{consumer_id}
+      AND song_list_id = #{song_list_id}
+      AND ROWNUM = 1
+  </select>
+
+  <select id="selectAvgScore" resultType="java.lang.Double">
+    SELECT NVL(avg_score, 0.0) as avg_score
+    FROM song_list_avg_scores
+    WHERE song_list_id = #{songListId}
+  </select>
+
+  <select id="selectSongListRankOrder" resultType="com.example.music.model.domain.ListScoreDTO">
+    SELECT sl.id, sl.title, COALESCE(v.avg_score, 0.0) as score
+    FROM song_list sl
+    LEFT JOIN song_list_avg_scores v ON sl.id = v.song_list_id
+    WHERE COALESCE(v.avg_score, 0.0) > 0
+    ORDER BY v.avg_score DESC NULLS LAST
+  </select>
+</mapper>

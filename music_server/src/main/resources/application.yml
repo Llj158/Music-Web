@@ -1,0 +1,157 @@
+# 主配置
+spring:
+  # 激活开发环境配置
+  profiles:
+    active: dev
+  # JSON日期时间格式配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # 开发工具配置
+  devtools:
+    restart:
+      # 禁用自动重启
+      enabled: false
+      # 重启时需要更新的目录
+      additional-paths: src/main/java
+      # 重启时排除的目录
+      exclude: WEB-INF/**
+  # Redis缓存配置
+  redis:
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器端口
+    port: 6379
+    # 使用的数据库索引
+    database: 0
+    # 连接超时时间（毫秒）
+    timeout: 1800000
+    # Redis连接池配置
+    lettuce:
+      pool:
+        # 最大连接数
+        max-active: 20
+        # 最大等待时间（-1表示无限制）
+        max-wait: -1
+        # 最大空闲连接
+        max-idle: 5
+        # 最小空闲连接
+        min-idle: 0
+  # 邮件服务配置
+  mail:
+    # 邮件服务器地址
+    host: smtp.163.com
+    # 邮件服务器端口
+    port: 465
+    # 发件人邮箱
+    username: 发送方邮箱
+    # 邮箱授权码
+    password: 邮箱的授权码
+    # 邮件服务器属性配置
+    properties:
+      mail:
+        smtp:
+          # 启用认证
+          auth: true
+          socketFactory:
+            # SSL配置
+            class: javax.net.ssl.SSLSocketFactory
+          # 启用STARTTLS
+          starttls:
+            enable: true
+  # 文件上传配置
+  servlet:
+    multipart:
+      # 单个文件大小限制
+      max-file-size: 50MB
+      # 总上传数据大小限制
+      max-request-size: 50MB
+
+# 服务器配置
+server:
+  # 服务器端口
+  port: 8888
+
+# MyBatis配置
+mybatis:
+  # 实体类包路径
+  type-aliases-package: com.example.music.model.domain
+  # mapper文件路径
+  mapper-locations: classpath:mapper/*.xml
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    # SQL日志输出实现类
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 指定NULL值的JDBC类型
+    jdbc-type-for-null: 'NULL'
+  global-config:
+    db-config:
+      # 指定主键类型为Oracle序列
+      id-type: INPUT
+      # 指定逻辑删除字段
+      logic-delete-field: deleted
+      # 指定逻辑删除值
+      logic-delete-value: 1
+      # 指定逻辑未删除值
+      logic-not-delete-value: 0
+
+# 日志配置
+logging:
+  level:
+    # Spring Boot自动配置日志级别
+    org.springframework.boot.autoconfigure: ERROR
+
+# 邮件配置
+mail:
+  # 默认发件人地址
+  address: 发送方邮箱
+
+---
+# 开发环境配置
+spring:
+  config:
+    activate:
+      # 指定为开发环境
+      on-profile: dev
+  # 开发环境数据库配置
+  datasource:
+    # Oracle数据库连接URL
+    url: jdbc:oracle:thin:@localhost:1521:orcl?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    # 数据库用户名
+    username: music_db
+    # 数据库密码
+    password: 123456
+    # Oracle数据库驱动类
+    driver-class-name: oracle.jdbc.OracleDriver
+
+# 阿里云OSS配置
+aliyun:
+  oss:
+    # OSS服务地址
+    endpoint: 
+    # 访问密钥ID
+    access-key-id: 
+    # 访问密钥密码
+    access-key-secret: 
+    # OSS存储桶名称
+    bucket-name: 
+
+---
+# 生产环境配置
+spring:
+  config:
+    activate:
+      # 指定为生产环境
+      on-profile: prod
+  # 生产环境数据库配置
+  datasource:
+    # Oracle数据库连接URL
+    url: jdbc:oracle:thin:@localhost:1521:orcl?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    # 数据库用户名
+    username: music_db
+    # 数据库密码
+    password: 123456
+    # Oracle数据库驱动类
+    driver-class-name: oracle.jdbc.OracleDriver

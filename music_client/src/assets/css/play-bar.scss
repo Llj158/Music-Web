@@ -1,0 +1,225 @@
+@import "var.scss";
+@import "global.scss";
+
+.play-bar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  width: 100%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+
+  .fold {
+    position: absolute;
+    bottom: $play-bar-height + 10px;
+    left: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  .progress {
+    position: absolute;
+    margin-top: -10px;
+    top: 0px;
+    left: 0;
+    right: 0;
+    padding: 0;
+
+    :deep(.el-slider__runway) {
+      height: 2px;
+      background-color: rgba(0, 0, 0, 0.1);
+      margin: 0;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    :deep(.el-slider__bar) {
+      height: 2px;
+      background-color: $color-blue-active;
+      border-radius: 0;
+      top: 0;
+    }
+
+    :deep(.el-slider__button-wrapper) {
+      top: -7px; // 修改为-7px使按钮垂直居中
+      width: 15px;
+      height: 15px;
+      padding: 0;
+    }
+
+    :deep(.el-slider__button) {
+      width: 12px;
+      height: 12px;
+      border: 2px solid $color-blue-active;
+      background-color: #fff;
+      transition: transform 0.2s ease;
+      display: none;
+
+      &:hover {
+        transform: scale(1.2);
+        display: block;
+      }
+    }
+
+    &:hover {
+      :deep(.el-slider__button) {
+        display: block;
+      }
+    }
+  }
+
+  .control-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $play-bar-height;
+    width: 100%;
+    padding: 0 20px;
+
+    .song-ctr {
+      position: relative;
+      margin: auto;
+      flex-wrap: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      svg {
+        width: 2rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+
+        &.disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+          pointer-events: none;
+
+          &:hover {
+            transform: none;
+          }
+        }
+      }
+    }
+
+    .info-box {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .song-bar-img {
+        width: calc($play-bar-height - 20px);
+        height: calc($play-bar-height - 20px);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      .song-info {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.85);
+      }
+
+      .time-info {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.45);
+      }
+    }
+
+    .song-edit {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      svg {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+.turn {
+  transform: rotate(180deg);
+}
+
+.show {
+  bottom: -($play-bar-height) + 5px;
+}
+
+.icon {
+  @include icon(1.1em, rgba(0, 0, 0, 0.65));
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $color-blue-active;
+  }
+}
+
+.active.icon {
+  color: $color-blue-active;
+}
+
+.disabled.icon {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.65);
+    transform: none;
+  }
+}
+
+@media screen and (min-width: $sm) {
+  .info-box {
+    width: 30%;
+    min-width: 200px;
+    margin-left: 30px;
+  }
+
+  .song-ctr,
+  .info-box,
+  .song-edit {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .info-box {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin-left: 10px;
+  }
+
+  .play-show {
+    display: none;
+  }
+}
